@@ -1,7 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useEffect } from 'react';
 import { View, Text, Image, ActivityIndicator, FlatList } from 'react-native';
-import { getProducts } from '../api/productApi';
+// import { getProducts } from '../api/productApi';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import api from './api/client.ts';
 
 type Product ={
     id:number,
@@ -12,25 +13,17 @@ type Product ={
 
 export default function ProductScreen() {
     
-const [products,setproducts]=useState<Product[]>([]);
-const [loading,setloading]=useState(true);
+   export const fetchProducts = createAsyncThunk("products/fetchProducts",
 
-    const fetchProducts = async () => {
+   async ()  => {
 
-        try{
-            const data = await getProducts();
-            setproducts(data);
-        }catch(error){
-            console.log("Fetch products error:",error);
-        }finally{
-            setloading(false);
-        }
-};
+    const response = await api.get("/products");
+    return response.data.products;
 
-useEffect(()=>{
-    fetchProducts();
-},[]);
+   }
+);
 
+  
 const renderItem = ({item}:{item:Product})=>{
     return(
         <View style={{

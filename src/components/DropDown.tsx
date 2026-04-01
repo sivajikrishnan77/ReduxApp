@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 // import { Text } from 'react-native-paper';
 import DropDownPicker from 'react-native-dropdown-picker';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 type Item = {
   label: string;
