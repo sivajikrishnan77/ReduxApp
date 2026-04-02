@@ -16,7 +16,6 @@ import DatePickerField from '../components/DatePickerField';
 type RootStackParamList = {
   Login: undefined;
   Signup: undefined;
-  BottomTab: undefined;
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Signup'>;

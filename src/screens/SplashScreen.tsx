@@ -6,8 +6,6 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 type RootStackParamList = {
   Login: undefined;
-  Signup: undefined;
-  BottomTab: undefined;
   Splash: undefined;
 };
 
@@ -39,7 +37,7 @@ useEffect(() => {
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 
       <Animated.View style={{ 
-           backgroundColor:"#ee0101",
+           backgroundColor:"#1888c0",
            position:'absolute',
            width:1000,
            height:1000,
@@ -48,7 +46,7 @@ useEffect(() => {
           
            }}></Animated.View>
 
-        <Image source={require('../assets/Luffy.jpg')} style={{ width: 120, height: 120,borderRadius:60,borderColor:'#fff',borderWidth:2,marginBottom:20 }} />
+        <Image source={require('../assets/Goku.jpg')} style={{ width: 120, height: 120,borderRadius:60,borderColor:'#fff',borderWidth:2,marginBottom:20 }} />
            
         <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#f3f1f1', marginBottom: 10,paddingTop:10 }}>Sivaji's TimeSheet</Text>
 

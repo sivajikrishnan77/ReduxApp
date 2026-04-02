@@ -13,9 +13,9 @@ type RootStackParamList =
 {
   Splash: undefined;
   Login: undefined;
-  Signup: undefined;
+  // Signup: undefined;
   Product: undefined;
-  BottomTab: undefined;
+  // BottomTab: undefined;
 };
 
 export default function MainStack() {

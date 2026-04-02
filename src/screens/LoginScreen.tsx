@@ -2,16 +2,14 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { TextInput, Button, Text } from 'react-native-paper';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../store/store';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-// import { Alert } from 'react-native';
-import  AsyncStorage  from '@react-native-async-storage/async-storage';
-import { loginApi } from '../api/authApi';
+import { loginUser } from '../store/slices/authSlice';
 
 type RootStackParamList = {
   Login: undefined;
-  Signup: undefined;
   Product: undefined;
-  BottomTab: undefined;
 };
 
 type LoginScreenProps = NativeStackScreenProps<RootStackParamList, 'Login'>;
@@ -22,28 +20,31 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const dispatch = useDispatch<AppDispatch>();
+
+const {loading}=useSelector((state:RootState)=>state.auth);
+
 const handleLogin = async () => {
-  if (!username || !password) {
-    console.log("Enter username and password");
-    return;
-  }
 
-  try {
-    const response = await loginApi(username, password);
 
-  await AsyncStorage.setItem("accessToken", response.accessToken);
-  await AsyncStorage.setItem("refreshToken", response.refreshToken);
+  console.log("Username:", username);
+  console.log("Password:", password);
 
+
+
+  const result = await dispatch(loginUser({username,password}));
+
+     console.log("Result:",result);
+
+  if (loginUser.fulfilled.match(result)) {
     navigation.navigate("Product");
-
-  } catch (error) {
-    console.log(error);
+ 
   }
 };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', padding: 20 , backgroundColor:'#121212' }}>
-      <Text variant="titleLarge" style={{fontWeight:'bold',color:'#de0d0d'}}>Login</Text>
+    <View style={{ flex: 1, justifyContent: 'center', padding: 20 , backgroundColor:'#eee6e6' }}>
+      <Text variant="titleLarge" style={{fontWeight:'bold',color:'#0b0b0b'}}>Login</Text>
       <TextInput
         label="Username"
         value={username}
@@ -61,16 +62,13 @@ const handleLogin = async () => {
       />
      <Button
   mode="contained"
-  onPress={() => {
-    console.log("Login button pressed");
-    handleLogin();
-  }}
+  loading={loading}
+  onPress= {
+    handleLogin
+  }
 >
   Login
-</Button>
-      <Button onPress={() => navigation.navigate('Signup')}>
-        Don’t have an account? Sign Up
-      </Button>
+  </Button>
     </View>
   );
 }

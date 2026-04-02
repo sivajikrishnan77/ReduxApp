@@ -1,28 +1,23 @@
 /* eslint-disable react-native/no-inline-styles */
 import { View, Text, Image, ActivityIndicator, FlatList } from 'react-native';
-// import { getProducts } from '../api/productApi';
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import api from './api/client.ts';
+import React ,{useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import{AppDispatch,RootState} from '../store/store';
+import { fetchProducts } from '../store/slices/productSlice';
+import {Product} from '../store/slices/productSlice';
 
-type Product ={
-    id:number,
-    title:string,
-    price:number,
-    thumbnail:string,
-};
+
 
 export default function ProductScreen() {
-    
-   export const fetchProducts = createAsyncThunk("products/fetchProducts",
+     const dispatch = useDispatch<AppDispatch>();
 
-   async ()  => {
+     const {list,loading}=useSelector((state:RootState)=>state.products);
 
-    const response = await api.get("/products");
-    return response.data.products;
+     useEffect(()=>{
+        dispatch(fetchProducts());
+     },[dispatch]);
 
-   }
-);
-
+   
   
 const renderItem = ({item}:{item:Product})=>{
     return(
@@ -55,10 +50,11 @@ if(loading){
 };
 return(
     <View style={{flex:1,backgroundColor:'#121212',padding:15,}}>
-        <FlatList
-        data={products}
+        <FlatList<Product>
+        data={list}
         keyExtractor={(item)=>item.id.toString()}
         renderItem={renderItem}
+        
         
         />
     </View>
