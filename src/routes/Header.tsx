@@ -21,7 +21,6 @@ const Header = ({ navigation, route, options, back }: Props) => {
            </TouchableOpacity>
         ) : back ? (
            <TouchableOpacity onPress={() => navigation.goBack()}>
-            console.log(navigation.canGoBack());
            <Ionicons name="arrow-back" size={24} color="#fff" />
            </TouchableOpacity>
         ) : (

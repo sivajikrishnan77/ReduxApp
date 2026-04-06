@@ -17,7 +17,6 @@ export default function ProductScreen() {
         dispatch(fetchProducts());
      },[dispatch]);
 
-   
   
 const renderItem = ({item}:{item:Product})=>{
     return(

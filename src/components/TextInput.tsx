@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {TextInput} from 'react-native-paper';
+// import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 type Props = {
